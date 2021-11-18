@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "75627559450",
+    "firebase_url": "https://firmansyah-monitoring-default-rtdb.firebaseio.com",
+    "project_id": "firmansyah-monitoring",
+    "storage_bucket": "firmansyah-monitoring.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:75627559450:android:89656909e2b6ff74fcafa3",
+        "android_client_info": {
+          "package_name": "com.example.program"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "75627559450-tn02bi8b38gfg4q8npgcgm6tbjp380fv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmLxlGVODzfvOYPKi-P82M5C_6zWYsi_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "75627559450-tn02bi8b38gfg4q8npgcgm6tbjp380fv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
