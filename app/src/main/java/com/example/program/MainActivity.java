@@ -38,22 +38,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
         Firebase.setAndroidContext(this);
 
 
-
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel sp_kelembapan = new NotificationChannel("data_sp_kelembapan", "data_sp_kelembapan", NotificationManager.IMPORTANCE_DEFAULT);
             NotificationChannel sp_suhu = new NotificationChannel("data_sp_suhu", "data_sp_suhu", NotificationManager.IMPORTANCE_DEFAULT);
             NotificationChannel sp_soil = new NotificationChannel("data_sp_soil", "data_sp_soil", NotificationManager.IMPORTANCE_DEFAULT);
 
-//            //Mode Manual
-//            NotificationChannel kontrol_air_on = new NotificationChannel("btn_air_on", "btn_air_off", NotificationManager.IMPORTANCE_DEFAULT);
-//            NotificationChannel kontrol_air_off = new NotificationChannel("btn_air_of", "btn_air_of", NotificationManager.IMPORTANCE_DEFAULT);
-//            NotificationChannel kontrol_desin_on = new NotificationChannel("btn_desin_on", "btn_desin_on", NotificationManager.IMPORTANCE_DEFAULT);
-//            NotificationChannel kontrol_desin_off = new NotificationChannel("btn_desin_off", "btn_desin_off", NotificationManager.IMPORTANCE_DEFAULT);
 
             NotificationChannel otomatis_kelembapan = new NotificationChannel("datakelembapanterkini", "datakelembapanterkini", NotificationManager.IMPORTANCE_DEFAULT);
             NotificationChannel otomatis_suhu= new NotificationChannel("datasuhuterkini", "datasuhuterkini", NotificationManager.IMPORTANCE_DEFAULT);
@@ -62,12 +56,6 @@ public class MainActivity extends AppCompatActivity {
             NotificationManager notif_sp_kelembapan = getSystemService(NotificationManager.class);
             NotificationManager notif_sp_suhu = getSystemService(NotificationManager.class);
             NotificationManager notif_sp_soil= getSystemService(NotificationManager.class);
-
-            //Mode Manual
-//            NotificationManager notif_air_on = getSystemService(NotificationManager.class);
-//            NotificationManager notif_air_off = getSystemService(NotificationManager.class);
-//            NotificationManager notif_desin_on = getSystemService(NotificationManager.class);
-//            NotificationManager notif_desin_off = getSystemService(NotificationManager.class);
 
             //Notif Manager Mode Otomatis
             NotificationManager notif_otomatiskelembapan = getSystemService(NotificationManager.class);
@@ -78,11 +66,7 @@ public class MainActivity extends AppCompatActivity {
             notif_sp_kelembapan.createNotificationChannel(sp_kelembapan);
             notif_sp_suhu.createNotificationChannel(sp_suhu);
             notif_sp_soil.createNotificationChannel(sp_soil);
-            // Mode Manual
-//            notif_air_on.createNotificationChannel(kontrol_air_on);
-//            notif_air_off.createNotificationChannel(kontrol_air_off);
-//            notif_desin_on.createNotificationChannel(kontrol_desin_on);
-//            notif_desin_off.createNotificationChannel(kontrol_desin_off);
+
 
             notif_otomatiskelembapan.createNotificationChannel(otomatis_kelembapan);
             notif_otomatissuhu.createNotificationChannel(otomatis_suhu);
@@ -129,25 +113,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 datasp_kelembaban.setValue(Float.valueOf(sp_kelembaban.getText().toString()));
-                NotificationCompat.Builder builder1 = new NotificationCompat.Builder(MainActivity.this, "data_sp_kelembapan");
-                NotificationCompat.Builder builder2 = new NotificationCompat.Builder(MainActivity.this, "data_sp_kelembapan");
-                NotificationCompat.Builder builder3 = new NotificationCompat.Builder(MainActivity.this, "data_sp_kelembapan");
-                builder1.setContentTitle("Upload Data SP Kelembapan");
-                builder1.setContentText("Data Terkirim " + sp_kelembaban.getText().toString()+ "'%");
-                builder1.setSmallIcon(R.drawable.ic_launcher_background);
-                builder1.setAutoCancel(true);
-                builder2.setContentTitle("Upload Data SP Suhu");
-                builder2.setContentText("Data Terkirim " + sp_suhu.getText().toString()+ "'C");;
-                builder2.setSmallIcon(R.drawable.ic_launcher_background);
-                builder2.setAutoCancel(true);
-                builder3.setContentTitle("Upload Data SP Soil");
-                builder3.setContentText("Data Terkirim " + sp_soil.getText().toString());
-                builder3.setSmallIcon(R.drawable.ic_launcher_background);
-                builder3.setAutoCancel(true);
-                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
-                managerCompat.notify(1, builder1.build());
-                managerCompat.notify(2, builder2.build());
-                managerCompat.notify(3, builder3.build());
             }
         });
 
@@ -155,13 +120,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 datasp_suhu.setValue(Float.valueOf(sp_suhu.getText().toString()));
-                NotificationCompat.Builder builder2 = new NotificationCompat.Builder(MainActivity.this, "data_sp_suhu");
-                builder2.setContentTitle("Upload Data SP Suhu");
-                builder2.setContentText("Data Terkirim " + sp_suhu.getText().toString()+ "'C");;
-                builder2.setSmallIcon(R.drawable.ic_launcher_background);
-                builder2.setAutoCancel(true);
-                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
-                managerCompat.notify(2, builder2.build());
             }
         });
 
@@ -169,13 +127,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 datasp_soil.setValue(Float.valueOf(sp_soil.getText().toString()));
-                NotificationCompat.Builder builder3 = new NotificationCompat.Builder(MainActivity.this, "data_sp_soil");
-                builder3.setContentTitle("Upload Data SP Soil");
-                builder3.setContentText("Data Terkirim " + sp_soil.getText().toString());
-                builder3.setSmallIcon(R.drawable.ic_launcher_background);
-                builder3.setAutoCancel(true);
-                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
-                managerCompat.notify(3, builder3.build());
             }
         });
 
@@ -196,13 +147,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 datadesinfektan.setValue(2);
-                NotificationCompat.Builder builder4 = new NotificationCompat.Builder(MainActivity.this, "btn_desin_of");
-                builder4.setContentTitle("Kontrol Disinfektan");
-                builder4.setContentText("Air Berhenti");
-                builder4.setSmallIcon(R.drawable.ic_launcher_background);
-                builder4.setAutoCancel(true);
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "btn_desin_of");
+                builder.setContentTitle("Kontrol Disinfektan");
+                builder.setContentText("Air Berhenti");
+                builder.setSmallIcon(R.drawable.ic_launcher_background);
+                builder.setAutoCancel(true);
                 NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
-                managerCompat.notify(4, builder4.build());
+                managerCompat.notify(1, builder.build());
             }
         });
 
@@ -210,13 +161,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 datadesinfektan.setValue(1);
-                NotificationCompat.Builder builder5 = new NotificationCompat.Builder(MainActivity.this, "btn_desin_on");
-                builder5.setContentTitle("Kontrol Disinfektan");
-                builder5.setContentText("Disinfektan Menyala");
-                builder5.setSmallIcon(R.drawable.ic_launcher_background);
-                builder5.setAutoCancel(true);
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "btn_desin_on");
+                builder.setContentTitle("Kontrol Disinfektan");
+                builder.setContentText("Disinfektan Menyala");
+                builder.setSmallIcon(R.drawable.ic_launcher_background);
+                builder.setAutoCancel(true);
                 NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
-                managerCompat.notify(5, builder5.build());
+                managerCompat.notify(1, builder.build());
             }
         });
 
@@ -224,13 +175,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dataair.setValue(1);
-                NotificationCompat.Builder builder6 = new NotificationCompat.Builder(MainActivity.this, "btn_air_on");
-                builder6.setContentTitle("Kontrol Air");
-                builder6.setContentText("Air Menyala");
-                builder6.setSmallIcon(R.drawable.ic_launcher_background);
-                builder6.setAutoCancel(true);
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "btn_air_on");
+                builder.setContentTitle("Kontrol Air");
+                builder.setContentText("Air Menyala");
+                builder.setSmallIcon(R.drawable.ic_launcher_background);
+                builder.setAutoCancel(true);
                 NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
-                managerCompat.notify(6, builder6.build());
+                managerCompat.notify(1, builder.build());
             }
         });
 
@@ -256,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "datakelembapanterkini");
                     builder.setContentTitle("Air Menyala");
                     if (kelembapan < spkelembapan){
-                        builder.setContentText(nilai_kelembaban.getText().toString()+ " >" +" nilai sp kelembapan = "+ sp_kelembaban.getText().toString()+ "'%");
+                        builder.setContentText(nilai_kelembaban.getText().toString()+ " <" +" nilai sp kelembapan = "+ sp_kelembaban.getText().toString()+ "%");
                         builder.setSmallIcon(R.drawable.ic_launcher_background);
                         builder.setAutoCancel(true);
                         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
@@ -295,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "datasuhuterkini");
                     builder.setContentTitle("Air Menyala" );
                     if (suhu > spsuhu){
-                        builder.setContentText(nilai_suhu.getText().toString()+ " >" +" nilai sp suhu = "+ sp_suhu.getText().toString()+ "'%");
+                        builder.setContentText(nilai_suhu.getText().toString()+ " >" +" nilai sp suhu = "+ sp_suhu.getText().toString()+ "'C");
                         builder.setSmallIcon(R.drawable.ic_launcher_background);
                         builder.setAutoCancel(true);
                         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
@@ -337,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "datasoilterkini");
                     builder.setContentTitle("Air Menyala");
                     if (soil > spsoil){
-                        builder.setContentText(nilai_soil.getText().toString() + " >"+" nilai sp soil = " + sp_soil.getText().toString() + "" + sp_kelembaban.getText().toString());
+                        builder.setContentText(nilai_soil.getText().toString() + " >"+" nilai sp soil = " + sp_soil.getText().toString()+"  = Kering ");
                         builder.setSmallIcon(R.drawable.ic_launcher_background);
                         builder.setAutoCancel(true);
                         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);

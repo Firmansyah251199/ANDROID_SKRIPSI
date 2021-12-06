@@ -70,9 +70,7 @@ try {
         else if(password.isEmpty()){
             Toast.makeText(LoginActivity.this, "Masukkan Password Yang Benar", Toast.LENGTH_SHORT).show();
         }
-        else if(password.length()<6){
-            Toast.makeText(LoginActivity.this, "Password Salah (Minimum 6)", Toast.LENGTH_SHORT).show();
-        }
+
 
     assert mAuth != null;
     mAuth.signInWithEmailAndPassword(email, password)

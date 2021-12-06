@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
             password = inputpassword.getText().toString();
 
             if(email.isEmpty()){
-                Toast.makeText(RegisterActivity.this, "Masukkan Email Aktif", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Masukkan Email Anda", Toast.LENGTH_SHORT).show();
             }
             else if(password.isEmpty()){
                 Toast.makeText(RegisterActivity.this, "Masukkan Password", Toast.LENGTH_SHORT).show();

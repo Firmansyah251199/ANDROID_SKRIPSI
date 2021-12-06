@@ -68,7 +68,7 @@ public class ForgotPassword extends AppCompatActivity {
             // Check for a valid email address.
             email = inputemail.getText().toString();
             if(email.isEmpty()){
-                Toast.makeText(ForgotPassword.this, "Masukkan Email Yang Terdaftar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ForgotPassword.this, "Masukkan Email Anda", Toast.LENGTH_SHORT).show();
             }
 
             mAuth.sendPasswordResetEmail(email).addOnCompleteListener(this, new OnCompleteListener<Void>() {

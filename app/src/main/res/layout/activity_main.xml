@@ -49,7 +49,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
-                        android:text="Nilai Kelembaban : 000%"
+                        android:text="Nilai Kelembapan : 000%"
                         android:textAlignment="center"
                         android:textColor="#ff0099cc"
                         android:textSize="20dp"
@@ -81,6 +81,7 @@
 
                 </LinearLayout>
 
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -107,7 +108,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
-                            android:text="SP KELEMBABAN"
+                            android:text="SP KELEMBAPAN"
                             android:textAlignment="center"
                             android:textColor="@android:color/holo_blue_dark"
                             android:textSize="20dp"
