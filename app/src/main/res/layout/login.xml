@@ -10,6 +10,8 @@
     android:padding="16dp"
     tools:context=".LoginActivity">
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,8 +19,11 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_margin="5dp"
+            android:layout_height="420dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:padding="10dp"
             app:cardCornerRadius="5dp"
             app:cardElevation="5dp">
@@ -34,7 +39,7 @@
                     android:id="@+id/emailError"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="50dp">
 
                     <EditText
                         android:id="@+id/email"
@@ -81,7 +86,8 @@
                     android:background="@drawable/button_gradient"
                     android:text="@string/login"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
+
 
                 <TextView
                     android:id="@+id/register"
@@ -105,10 +111,20 @@
                     android:onClick="reset_password"
                     android:text="@string/reset_password"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
+                <ImageView
+                    android:id="@+id/about"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="155dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerInParent="true"
+                    app:srcCompat="@drawable/info" />
 
             </LinearLayout>
+
+
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
@@ -120,6 +136,9 @@
         android:layout_marginTop="-50dp"
         android:background="@drawable/round_background"
         android:padding="15dp"
-        android:src="@drawable/logo"/>
+        android:src="@drawable/logo" />
+
+
 
 </RelativeLayout>
+

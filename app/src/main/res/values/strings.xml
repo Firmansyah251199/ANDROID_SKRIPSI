@@ -3,6 +3,7 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="login">Login</string>
+    <string name="about">About</string>
     <string name="create_new">Click here for register</string>
     <string name="not_register">Not Register?</string>
     <string name="back">Login</string>
@@ -16,4 +17,7 @@
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="password_error">Please enter a password</string>
     <string name="error_invalid_password">Please enter a minimum password of 6 characters</string>
+    <string name="tutorial_aplikasi"><a href="https://drive.google.com/file/d/1MhB-XAnBhoAvO00BoobGc4jea_jv6_XY/view?usp=sharing">Disini</a></string>
+    <string name="tutorial_alat"><a href="https://drive.google.com/file/d/1VyZaBwHstNpX5MBdKDrNcHaif34OwNrx/view?usp=sharing">Disini</a></string>
+    <string name="ig"><a href="https://drive.google.com/file/d/1VyZaBwHstNpX5MBdKDrNcHaif34OwNrx/view?usp=sharing"></a></string>
 </resources>

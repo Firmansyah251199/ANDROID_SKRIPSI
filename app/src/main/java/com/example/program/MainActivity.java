@@ -1,73 +1,57 @@
 package com.example.program;
-import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.net.Uri;
-import android.os.Build;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.os.Bundle;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
-import com.github.anastr.speedviewlib.SpeedView;
 
-import android.app.Notification;
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
+import android.os.Build;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
-import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText sp_kelembaban,sp_suhu,sp_soil;
     TextView nilai_suhu, nilai_kelembaban,nilai_soil, p_kelembapan, p_suhu, p_soil;
-    Button btn_kelembaban,btn_suhu,btn_soil,btn_mode_otomatis,btn_mode_manual,btn_air_on,btn_air_off,btn_desinon, btn_desinoff;
-    Firebase datasp_kelembaban,datasp_suhu, datasuhu,datakelembaban,datasoil,datasp_soil,datamode,dataair,datadesinfektan,dataotomatis;
-
+    Button btn_kelembaban,btn_suhu,btn_soil,btn_mode_otomatis,btn_mode_manual,btn_air_on,btn_air_off,btn_desinon, btn_desinoff, btn_history;
+    Firebase datasp_kelembaban,datasp_suhu, datasuhu,datakelembaban,datasoil,datasp_soil,datamode,dataair,datadesinfektan,dataotomatis,datetime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Firebase.setAndroidContext(this);
-
-
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel sp_kelembapan = new NotificationChannel("data_sp_kelembapan", "data_sp_kelembapan", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationChannel sp_suhu = new NotificationChannel("data_sp_suhu", "data_sp_suhu", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationChannel sp_soil = new NotificationChannel("data_sp_soil", "data_sp_soil", NotificationManager.IMPORTANCE_DEFAULT);
-
 
             NotificationChannel otomatis_kelembapan = new NotificationChannel("datakelembapanterkini", "datakelembapanterkini", NotificationManager.IMPORTANCE_DEFAULT);
             NotificationChannel otomatis_suhu= new NotificationChannel("datasuhuterkini", "datasuhuterkini", NotificationManager.IMPORTANCE_DEFAULT);
             NotificationChannel otomatis_soil= new NotificationChannel("datasoilterkini", "datasoilterkini", NotificationManager.IMPORTANCE_DEFAULT);
-
-            NotificationManager notif_sp_kelembapan = getSystemService(NotificationManager.class);
-            NotificationManager notif_sp_suhu = getSystemService(NotificationManager.class);
-            NotificationManager notif_sp_soil= getSystemService(NotificationManager.class);
-
+            //
             //Notif Manager Mode Otomatis
             NotificationManager notif_otomatiskelembapan = getSystemService(NotificationManager.class);
             NotificationManager notif_otomatissuhu = getSystemService(NotificationManager.class);
             NotificationManager notif_otomatissoil = getSystemService(NotificationManager.class);
-
-
-            notif_sp_kelembapan.createNotificationChannel(sp_kelembapan);
-            notif_sp_suhu.createNotificationChannel(sp_suhu);
-            notif_sp_soil.createNotificationChannel(sp_soil);
-
-
+            //
             notif_otomatiskelembapan.createNotificationChannel(otomatis_kelembapan);
             notif_otomatissuhu.createNotificationChannel(otomatis_suhu);
             notif_otomatissoil.createNotificationChannel(otomatis_soil);
@@ -95,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
         p_suhu = findViewById(R.id.txtmax_suhu);
         p_soil = findViewById(R.id.txtmax_soil);
 
+        btn_history = findViewById(R.id.id_list);
+
 
         datasp_kelembaban= new Firebase("https://firmansyah-monitoring-default-rtdb.firebaseio.com/Kontrol/sp_kelembaban");
         datasp_suhu= new Firebase("https://firmansyah-monitoring-default-rtdb.firebaseio.com/Kontrol/sp_suhu");
@@ -108,11 +94,14 @@ public class MainActivity extends AppCompatActivity {
         datakelembaban = new Firebase("https://firmansyah-monitoring-default-rtdb.firebaseio.com/Data/Kelembaban");
         datasoil = new Firebase("https://firmansyah-monitoring-default-rtdb.firebaseio.com/Data/Soil");
 
-
         btn_kelembaban.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 datasp_kelembaban.setValue(Float.valueOf(sp_kelembaban.getText().toString()));
+//                Toast.makeText(MainActivity.this, "Data SP Kelembapan Terkirim : " + sp_kelembaban.getText().toString() + "%", Toast.LENGTH_LONG).show();
+
+                lastchange();
+                insert("Waktu terakhir Kelembapan");
             }
         });
 
@@ -120,6 +109,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 datasp_suhu.setValue(Float.valueOf(sp_suhu.getText().toString()));
+                Toast.makeText(MainActivity.this, "Data SP Suhu Terkirim : " + sp_suhu.getText().toString() + " C", Toast.LENGTH_LONG).show();
+
+                lastchange();
+                insert("Waktu terakhir Suhu");
             }
         });
 
@@ -127,6 +120,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 datasp_soil.setValue(Float.valueOf(sp_soil.getText().toString()));
+                Toast.makeText(MainActivity.this, "Data SP Soil Terkirim : " + sp_soil.getText().toString() + "%", Toast.LENGTH_LONG).show();
+
+                lastchange();
+                insert("Waktu terakhir Soil");
             }
         });
 
@@ -134,12 +131,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 datamode.setValue(2);
+                Toast.makeText(MainActivity.this, "Anda Menggunakan Mode Manual", Toast.LENGTH_LONG).show();
             }
         });
         btn_mode_otomatis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 datamode.setValue(1);
+                Toast.makeText(MainActivity.this, "Anda Menggunakan Mode Otomatis", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -147,13 +146,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 datadesinfektan.setValue(2);
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "btn_desin_of");
-                builder.setContentTitle("Kontrol Disinfektan");
-                builder.setContentText("Air Berhenti");
-                builder.setSmallIcon(R.drawable.ic_launcher_background);
-                builder.setAutoCancel(true);
-                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
-                managerCompat.notify(1, builder.build());
+               // Toast.makeText(MainActivity.this, "Desinfektan Mati", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -161,13 +154,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 datadesinfektan.setValue(1);
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "btn_desin_on");
-                builder.setContentTitle("Kontrol Disinfektan");
-                builder.setContentText("Disinfektan Menyala");
-                builder.setSmallIcon(R.drawable.ic_launcher_background);
-                builder.setAutoCancel(true);
-                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
-                managerCompat.notify(1, builder.build());
+               // Toast.makeText(MainActivity.this, "Desinfektan Menyala", Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -175,13 +163,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dataair.setValue(1);
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "btn_air_on");
-                builder.setContentTitle("Kontrol Air");
-                builder.setContentText("Air Menyala");
-                builder.setSmallIcon(R.drawable.ic_launcher_background);
-                builder.setAutoCancel(true);
-                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
-                managerCompat.notify(1, builder.build());
+                //Toast.makeText(MainActivity.this, "Air Menyala", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -189,6 +171,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dataair.setValue(2);
+               // Toast.makeText(MainActivity.this, "Air Mati", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        btn_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Intent = new Intent(MainActivity.this,ViewHistory.class);
+                startActivity(Intent);
             }
         });
 
@@ -252,11 +243,6 @@ public class MainActivity extends AppCompatActivity {
                         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
                         managerCompat.notify(1, builder.build());
                     } else {
-//                        builder.setContentText(" Solenoid Mati " );
-//                        builder.setSmallIcon(R.drawable.ic_launcher_background);
-//                        builder.setAutoCancel(true);
-//                        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
-//                        managerCompat.notify(1, builder.build());
                     }
                 } catch (Exception ex)
                 {
@@ -374,6 +360,36 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void lastchange() {
+        datetime = new Firebase("https://firmansyah-monitoring-default-rtdb.firebaseio.com/datetime/datetime");
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss").format(Calendar.getInstance().getTime());
+        try {
+            datetime.setValue(timeStamp);
+        } catch (Exception e){
+            datetime.setValue(timeStamp);
+        }
+    }
+
+    private void insert(String name) {
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss").format(Calendar.getInstance().getTime());
+
+        try {
+            String datetime = timeStamp;
+
+            SQLiteDatabase db = openOrCreateDatabase("db_datetime", Context.MODE_PRIVATE,null);
+            db.execSQL("CREATE TABLE IF NOT EXISTS db_datetime (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, datetime VARCHAR )");
+            String sql = "insert into db_datetime (name, datetime)values(?,?)";
+            SQLiteStatement statement = db.compileStatement(sql);
+            statement.bindString(1, name);
+            statement.bindString(2, datetime);
+            statement.execute();
+            Toast.makeText(this, "Record Added", Toast.LENGTH_LONG).show();
+        }catch (Exception e){
+            Toast.makeText(this, "Record Fail", Toast.LENGTH_LONG).show();
+        }
+
     }
 
 }

@@ -1,14 +1,13 @@
 package com.example.program;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.EditText;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -16,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
 public class LoginActivity extends AppCompatActivity {
 
     EditText inputemail, inputpassword;
@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     boolean isEmailValid, isPasswordValid;
     TextInputLayout emailError, passError;
     TextView register, forgotpassword;
+    ImageView about;
 
     private FirebaseAuth mAuth;
 
@@ -35,12 +36,10 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
         mAuth = FirebaseAuth.getInstance();
 
-
-
-
         inputemail = (EditText) findViewById(R.id.email);
         inputpassword = (EditText) findViewById(R.id.password);
         login = (Button) findViewById(R.id.login);
+        about = findViewById(R.id.about);
         emailError = (TextInputLayout) findViewById(R.id.emailError);
         passError = (TextInputLayout) findViewById(R.id.passError);
         register =  findViewById(R.id.register);
@@ -51,6 +50,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 SetValidation();
+            }
+        });
+
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, About.class);
+                startActivity(intent);
             }
         });
 
@@ -78,30 +85,16 @@ try {
                 @Override
                 public void onComplete(Task<AuthResult> task)
                 {
-
                     if (task.isSuccessful()) {
                         Toast.makeText(LoginActivity.this, "Login Sukses", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else {
                         Toast.makeText(LoginActivity.this, "Login Gagal", Toast.LENGTH_SHORT).show();
-
-
-//                                if (isEmailValid == isPasswordValid) {
-//                                    if (inputemail.getText().toString().equals("admin@gmail.com") == inputpassword.getText().toString().equals("admin1234")) {
-//                                        Toast.makeText(getApplicationContext(), "Selamat Datang Admin", Toast.LENGTH_SHORT).show();
-//                                        Intent intent1 = new Intent(LoginActivity.this, MainActivity.class);
-//                                        startActivity(intent1);
-//                                    } else {
-//                                        passError.setError("Username and Password Not True");
-//                                    }
-//                                }
-
                     }
                 }
             });
 } catch (Exception e){}
-
     }
 
 

@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#3E7C17</color>
     <color name="colorAccent">#F4A442</color>
     <color name="zircon">#e0e6e4</color>
-    <color name="bar_atas">#ff0099cc</color>
+    <color name="bar_atas">#000000</color>
 
 
 </resources>

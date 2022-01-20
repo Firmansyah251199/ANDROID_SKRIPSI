@@ -10,9 +10,11 @@
         <entry key="..\:/INSTITUT_TEKNOLOGI_NASIONAL/SKRIPSI/Skripsi/Judul/ANDROID_SKRIPSI/app/src/main/res/drawable/button_gradient.xml" value="0.2128205128205128" />
         <entry key="..\:/INSTITUT_TEKNOLOGI_NASIONAL/SKRIPSI/Skripsi/Judul/ANDROID_SKRIPSI/app/src/main/res/drawable/gradient.xml" value="0.2128205128205128" />
         <entry key="..\:/INSTITUT_TEKNOLOGI_NASIONAL/SKRIPSI/Skripsi/Judul/ANDROID_SKRIPSI/app/src/main/res/drawable/round_background.xml" value="0.1609375" />
-        <entry key="..\:/INSTITUT_TEKNOLOGI_NASIONAL/SKRIPSI/Skripsi/Judul/ANDROID_SKRIPSI/app/src/main/res/layout/activity_main.xml" value="0.2410623084780388" />
+        <entry key="..\:/INSTITUT_TEKNOLOGI_NASIONAL/SKRIPSI/Skripsi/Judul/ANDROID_SKRIPSI/app/src/main/res/layout/about.xml" value="0.22" />
+        <entry key="..\:/INSTITUT_TEKNOLOGI_NASIONAL/SKRIPSI/Skripsi/Judul/ANDROID_SKRIPSI/app/src/main/res/layout/activity_main.xml" value="0.21619135234590617" />
         <entry key="..\:/INSTITUT_TEKNOLOGI_NASIONAL/SKRIPSI/Skripsi/Judul/ANDROID_SKRIPSI/app/src/main/res/layout/forgot_password.xml" value="0.22" />
-        <entry key="..\:/INSTITUT_TEKNOLOGI_NASIONAL/SKRIPSI/Skripsi/Judul/ANDROID_SKRIPSI/app/src/main/res/layout/login.xml" value="0.22" />
+        <entry key="..\:/INSTITUT_TEKNOLOGI_NASIONAL/SKRIPSI/Skripsi/Judul/ANDROID_SKRIPSI/app/src/main/res/layout/history.xml" value="0.21" />
+        <entry key="..\:/INSTITUT_TEKNOLOGI_NASIONAL/SKRIPSI/Skripsi/Judul/ANDROID_SKRIPSI/app/src/main/res/layout/login.xml" value="0.25" />
         <entry key="..\:/INSTITUT_TEKNOLOGI_NASIONAL/SKRIPSI/Skripsi/Judul/ANDROID_SKRIPSI/app/src/main/res/layout/register.xml" value="0.22" />
         <entry key="..\:/INSTITUT_TEKNOLOGI_NASIONAL/SKRIPSI/Skripsi/Judul/ANDROID_SKRIPSI/app/src/main/res/layout/splashscreen.xml" value="0.18" />
       </map>
